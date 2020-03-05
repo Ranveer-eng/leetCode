@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+
+public class Main
+{   
+    public static int lengthOfLongestSubstring(String s) {
+        String a = "";
+        //int[] ar = new int[s.length()];
+        int maximum = 0;
+        for(int i = 0; i < s.length(); i++){
+            String ai = s.substring(i,i+1);
+            if(!a.contains(ai)){
+                a = a + ai;
+                //continue;
+                if(i == s.length() - 1){
+                    //ar[i] = a.length();
+                    if(a.length() > maximum){
+                        maximum = a.length();
+                    }
+                }
+            }else if(!a.substring(a.length()-1).equals(ai)){
+                if(a.length() > maximum){
+                    maximum = a.length();
+                }
+                a = a.substring(a.lastIndexOf(s.charAt(i)) + 1) + ai;
+                
+            }
+            
+            else{
+                //ar[i] = a.length();
+                
+                if(a.length() > maximum){
+                    maximum = a.length();
+                }
+                a = ai;
+            }
+        }
+        return maximum;
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        //String s = sc.nextLine();
+        String s = "aabaab!bb";
+        System.out.println(lengthOfLongestSubstring(s));
+    }
+}
