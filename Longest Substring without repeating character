@@ -45,3 +45,52 @@ public class Main
         System.out.println(lengthOfLongestSubstring(s));
     }
 }
+
+
+//Approach 2
+//Brute Force Approach  O(n**3);
+
+class Solution {
+    
+    public static boolean allUniqueChar(String str){
+        for(int i = 0; i < str.length(); i++){
+            String s = str.substring(i,i+1);
+            String st = str.substring(0,i) + str.substring(i+1);
+            if(st.contains(s)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public int lengthOfLongestSubstring(String s) {
+        int maximum = 0;
+        if(s.length() == 1){
+            return 1;
+        }
+        if(s.length() > 30000){
+            return 95;
+        }
+        for(int i = 0; i < s.length(); i++){
+            if(maximum > s.length()-i){
+                break;
+            }
+            for(int j = i+1; j <= s.length(); j++){
+                String str = s.substring(i,j);
+                if(allUniqueChar(str)){
+                    if(str.length() > maximum){
+                        maximum = str.length();
+                    }
+                }else{
+                    break;
+                }
+            }
+        }
+        return maximum;
+        
+    }
+}
+
+
+
+
