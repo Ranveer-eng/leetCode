@@ -92,5 +92,74 @@ class Solution {
 }
 
 
+//Brute force Approach 
+//Given solution
+
+class Solution {
+    
+    public boolean allUnique(String s, int start, int end) {
+        Set<Character> set = new HashSet<>();
+        for (int i = start; i < end; i++) {
+            Character ch = s.charAt(i);
+            if (set.contains(ch)) return false;
+            set.add(ch);
+        }
+        return true;
+    }
+    
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        int ans = 0;
+        for (int i = 0; i < n; i++)
+            for (int j = i + 1; j <= n; j++)
+                if (allUnique(s, i, j)) ans = Math.max(ans, j - i);
+        return ans;
+    }
+}
+
+
+//Approach 3
+//Sliding window approach  O(n + n);
+
+class Solution {
+    
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int maximum = 0;
+        int i = 0;
+        int j = 0;
+        while(i < s.length() && j < s.length()){
+            if(!set.contains(s.charAt(j))){
+                set.add(s.charAt(j++));
+                maximum = Math.max(maximum, j-i);
+            }else{
+                set.remove(s.charAt(i++));
+            }
+        }
+        return maximum;
+    }
+}
+
+
+//Approach 4
+//Optimized sliding window Approach  O(n);
+
+class Solution {
+    
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length(), maximum = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for(int i = 0, j = 0; j < n; j++){
+            if(map.containsKey(s.charAt(j))){
+                i = Math.max(map.get(s.charAt(j)), i);
+            }
+            maximum = Math.max(maximum, j-i+1);
+            map.put(s.charAt(j), j+1);
+        }
+        return maximum;
+    }
+}
+
+
 
 
